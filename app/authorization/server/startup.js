@@ -187,16 +187,14 @@ Meteor.startup(function() {
 		}, { fields: { _id: 1 } });
 
 		if (!existent) {
-			const result = Permissions.upsert({ _id: permissionId }, { $set: permission });
-			console.log('result ->', existent, permissionId, permission, result);
-		} else {
-			console.log('existent ->', existent, permissionId, permission);
+			Permissions.upsert({ _id: permissionId }, { $set: permission });
 		}
 
 		delete previousSettingPermissions[permissionId];
 	};
 
 	const createPermissionsForExistingSettings = function() {
+		console.log('createPermissionsForExistingSettings');
 		const previousSettingPermissions = getPreviousPermissions();
 
 		Settings.findNotHidden().fetch().forEach((setting) => {
@@ -216,6 +214,7 @@ Meteor.startup(function() {
 
 	// register a callback for settings for be create in higher-level-packages
 	const createPermissionForAddedSetting = function(settingId) {
+		console.log('createPermissionForAddedSetting', settingId);
 		const previousSettingPermissions = getPreviousPermissions(settingId);
 		const setting = Settings.findOneById(settingId);
 		if (setting) {
