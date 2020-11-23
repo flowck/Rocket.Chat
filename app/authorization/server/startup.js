@@ -186,8 +186,11 @@ Meteor.startup(function() {
 			...permission,
 		}, { fields: { _id: 1 } });
 
+		console.log('existent ->', existent, permissionId, permission);
+
 		if (!existent) {
-			Permissions.upsert({ _id: permissionId }, { $set: permission });
+			const result = Permissions.upsert({ _id: permissionId }, { $set: permission });
+			console.log('result ->', result);
 		}
 
 		delete previousSettingPermissions[permissionId];
