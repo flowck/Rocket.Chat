@@ -183,6 +183,7 @@ Meteor.startup(function() {
 
 		const existent = Permissions.findOne({
 			_id: permissionId,
+			...permission,
 		}, { fields: { _id: 1 } });
 
 		if (!existent) {
