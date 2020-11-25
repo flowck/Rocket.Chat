@@ -190,6 +190,7 @@ Meteor.startup(function() {
 			try {
 				Permissions.upsert({ _id: permissionId }, { $set: permission });
 			} catch (e) {
+				console.log('error trying to upsert the permission', e.reason, e);
 				Permissions.upsert({ _id: permissionId }, { $set: permission });
 			}
 		}
